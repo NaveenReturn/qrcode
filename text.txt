@@ -1,0 +1,111 @@
+import PropTypes from 'prop-types';
+
+props type method declaration
+
+Students.propTypes = {
+    name:PropTypes.string,
+    age:PropTypes.number
+}
+
+********************Default Props******************************
+
+Students.defaultProps={
+    name:"kannika",
+    age:22
+}
+
+************************ChildComponents to props send properly array condition check***********
+    children component use to multiple html tag render
+    -------------APP.jsx--------------
+             {/* <ChildComponents>
+               <p>paragrap content line 1</p>
+              <p>paragrap content line 2</p>
+               <p>paragrap content line 3</p>
+           </ChildComponents> */}
+
+
+import PropsTypes from "prop-types"
+export const ChildComponents = (props) => {
+  return (
+    <div>{props.children}</div>
+  )
+}
+******EXAMPLE**
+ChildComponents.propTypes ={
+      children:PropsTypes.array
+}
+
+
+****************condition props colors oneOf*************************************
+   APP.jsx
+  <OneofSample  color={"yello"} />
+
+import PropsTypes from "prop-types"
+
+export const OneofSample = (props) => {
+
+    const {color} = props;
+  return (
+    <div  style={{backgroundColor:color,padding:"10px"}}>
+      <p>this one of paragrap content {color }</p>
+    </div>
+  )
+}
+OneofSample.propTypes = {
+    color:PropsTypes.oneOf(["orange","red","blue"]).isRequired,
+}
+
+********************condition props types oneOfType****************************************
+*************TYPE declaration*********
+      APP.jsx
+        {/* <MultiTime value="Hello" />
+         <MultiTime value={22} />
+         <MultiTime value= {true} /> */}
+
+
+import PropsTypes from "prop-types"
+
+export const MultiTime = (props) => {
+  return (
+    <div>
+        <p>This value is :{props.value}</p>
+    </div>
+  )
+}
+
+MultiTime.propTypes = {
+    value:PropsTypes.oneOfType([PropsTypes.string,PropsTypes.number,PropsTypes.bool]).isRequired,
+}
+
+
+***************************************object date type set *********************
+
+      const items = [
+          {id:1,name:"items 1"},
+          {id:2,name:"items 2"},
+          {id:3,name:"items 3"},
+      ]
+      {/* <ArraySample items={items} /> */}
+
+
+
+import PropsTypes from "prop-types";
+export const ArraySample = (props) => {
+
+    const {items} = props;
+  return (
+    
+    <div>
+        {items.map((items)=>(
+            <li key={items.id} >{items.name}</li>
+        ))}
+    </div>
+  )
+}
+ArraySample.propTypes = {
+    items:PropsTypes.arrayOf(
+        PropsTypes.shape({
+            id:PropsTypes.number.isRequired
+        })
+    ).isRequired
+}
